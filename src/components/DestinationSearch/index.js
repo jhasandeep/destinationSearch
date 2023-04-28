@@ -1,5 +1,3 @@
-// Write your code here
-
 import {Component} from 'react'
 
 import DestinationItem from '../DestinationItem'
@@ -7,44 +5,47 @@ import DestinationItem from '../DestinationItem'
 import './index.css'
 
 class DestinationSearch extends Component {
-  state = {searchInput: ''}
+  state = {
+    searchInput: '',
+  }
 
-  getSearchDetailsList = event => {
+  onChangeSearchInput = event => {
     this.setState({searchInput: event.target.value})
   }
 
   render() {
     const {searchInput} = this.state
     const {destinationsList} = this.props
-    const searchResults = destinationsList.filter(each =>
-      each.name.toLowerCase().includes(searchInput.toLowerCase()),
+    const searchResults = destinationsList.filter(eachDestination =>
+      eachDestination.name.toLowerCase().includes(searchInput.toLowerCase()),
     )
 
     return (
-      <div className="bg-container">
-        <div className="Container">
+      <div className="app-container">
+        <div className="destinations-search-container">
           <h1 className="heading">Destination Search</h1>
-          <div>
+          <div className="search-input-container">
             <input
               type="search"
-              placeholder="search"
-              onChange={this.getSearchDetailsList}
-              className="Search"
+              placeholder="Search"
+              className="search-input"
+              value={searchInput}
+              onChange={this.onChangeSearchInput}
             />
             <img
-              src="https://assets.ccbp.in/frontend/react-js/destinations-search-icon-img.png "
-              className="logo"
-              alt="Search icon"
+              src="https://assets.ccbp.in/frontend/react-js/destinations-search-icon-img.png"
+              alt="search icon"
+              className="search-icon"
             />
-            <ul className="list-container">
-              {searchResults.map(eachUser => (
-                <DestinationItem
-                  destinationDetails={eachUser}
-                  key={eachUser.id}
-                />
-              ))}
-            </ul>
           </div>
+          <ul className="destinations-list">
+            {searchResults.map(eachDestination => (
+              <DestinationItem
+                key={eachDestination.id}
+                destinationDetails={eachDestination}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     )
@@ -52,34 +53,3 @@ class DestinationSearch extends Component {
 }
 
 export default DestinationSearch
-
-// import DestinationItem from '../DestinationItem/index'
-
-// const DestinationSearch = props => {
-//   const {destinationsList} = props
-//   //   console.log(destinationsList)
-
-//   let searchInput = ''
-
-//   const change = event => {
-//     searchInput = event.target.value
-
-//     filteredList = destinationsList.filter(eachUser =>
-//       eachUser.name.includes(searchInput),
-//     )
-//   }
-
-//   return (
-//     <ul>
-//       <h1>Destination Search</h1>
-
-//       <input type="search" onChange={change} />
-
-//       {filteredList.map(eachUser => (
-//         <DestinationItem userDetails={eachUser} key={eachUser.id} />
-//       ))}
-//     </ul>
-//   )
-// }
-
-// export default DestinationSearch
